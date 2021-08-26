@@ -18,6 +18,7 @@ let blue = 0;
 let bvalue = 0;
 let img;
 let song;
+let song2;
 
 function preload(){
   //マシュマロ王国
@@ -162,6 +163,7 @@ function gameOver() {
   fill(128 + sin(frameCount * 0.1) * 128);
   text("GAME OVER", 200, 120);
   song.stop();
+  
 }
 
 function eCreate() {
@@ -194,6 +196,7 @@ function keyPressed() {
     }
   }
 }
+
 // function mousePressed() {
 // //   noLoop();
 // }
