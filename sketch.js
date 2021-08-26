@@ -20,7 +20,9 @@ let img;
 let song;
 
 function preload(){
+  //マシュマロ王国
   song = loadSound('./assets/music/bgm.mp3');
+  song2 = loadSound('./assets/music/jump.mp3');
 }
 
 function setup() {
@@ -188,10 +190,10 @@ function keyPressed() {
   if (keyCode == 32) {
     if (jValue == 0) {
       jValue = 1;
+      song2.play();
     }
   }
 }
-
 // function mousePressed() {
 // //   noLoop();
 // }
