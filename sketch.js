@@ -19,23 +19,41 @@ let bvalue = 0;
 let img;
 let song;
 let song2;
+let soundFlag = false;
+let on;
+let off;
+let c = "OFF";
 
-function preload(){
+function preload() {
   //マシュマロ王国
-  song = loadSound('./assets/music/bgm.mp3');
-  song2 = loadSound('./assets/music/jump.mp3');
+  song = loadSound("./assets/music/bgm.mp3");
+  song2 = loadSound("./assets/music/jump.mp3");
 }
 
 function setup() {
   // put setup code here
   createCanvas(600, 400);
-  song.loop();
+  // song.loop();
   eCreate();
+  // on = createButton("BGM：ON");
+  // on = createButton("BGM：ON/OFF");
+  // on.size(150,50);
+  // on.position(50,135);
+  // // on.mousePressed(toggleOn);
+  // on.mousePressed(togglePlay);
+  // off = createButton("BGM：OFF");
+  // off.position(100  ,150);
+  // off.mousePressed(toggleOff);
 }
 
 function draw() {
   // put drawing code here
   background(255);
+  noStroke();
+  fill(50);
+  textSize(25);
+  text("BGM:", 0, 25);
+  text(c, 100, 25);
   ///背景画像挿入
   // image(img, 0, -50, 450, 200);
   gameDisplay();
@@ -85,13 +103,12 @@ function eBall() {
     ellipse(ex, ey - eSize / 2, eSize, eSize);
     fill(0, 0, 0);
     // fill(225 - red, 225 - green, 225 - blue);
-  } else if(score <8){
-    
+  } else if (score < 8) {
     ex = ex + eSpeed * 1.5;
     fill(225, green, blue);
     ellipse(ex, ey - eSize / 2, eSize, eSize);
     fill(0);
-  }else{
+  } else {
     ex = ex + eSpeed + eSpeed;
     fill(225, green, blue);
     ellipse(ex, ey - eSize / 2, eSize, eSize);
@@ -104,7 +121,7 @@ function eBall() {
     px = 400;
     pCreate();
     score = score + 1;
-  
+
     bvalue = 0;
     for (let i = 1; i < 100; i++) {
       if (score == 3 * i) {
@@ -163,7 +180,6 @@ function gameOver() {
   fill(128 + sin(frameCount * 0.1) * 128);
   text("GAME OVER", 200, 120);
   song.stop();
-  
 }
 
 function eCreate() {
@@ -185,6 +201,9 @@ function reset() {
 function jumping() {
   if (jValue == 0) {
     jValue = 1;
+    if (song.isPlaying()) {
+      song2.play();
+    }
   }
 }
 
@@ -192,7 +211,9 @@ function keyPressed() {
   if (keyCode == 32) {
     if (jValue == 0) {
       jValue = 1;
-      song2.play();
+      if (song.isPlaying()) {
+        song2.play();
+      }
     }
   }
 }
@@ -204,25 +225,33 @@ function keyPressed() {
 //   loop();
 // }
 
-
 function back() {
   bvalue = random(0, 1);
 }
 
-function togglePlay(){
+function togglePlay() {
   if (song.isPlaying()) {
     // .isPlaying()はブール値を返す
     song.stop();
-}
-else {
+    c = "OFF";
+  } else {
     song.play();
-}
-}
-function touchStarted() {
-  if (!isUserStarted) {
-      // touchStarted()を1回だけ呼び出されるようにする
-      print('touch');
-      userStartAudio();
-      isUserStarted = true;
+    c = "ON";
   }
 }
+// function toggleOn(){
+//     song.loop();
+//     c = "ON";
+// }
+// function toggleOff(){
+//   song.stop();
+//   c = "OFF";
+// }
+// function touchStarted() {
+//   if (!isUserStarted) {
+//       // touchStarted()を1回だけ呼び出されるようにする
+//       print('touch');
+//       userStartAudio();
+//       isUserStarted = true;
+//   }
+// }
